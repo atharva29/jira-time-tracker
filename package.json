@@ -1,0 +1,44 @@
+{
+  "name": "jira-time-tracker",
+  "productName": "Jira Time Tracker",
+  "version": "0.1.0",
+  "description": "macOS menu bar time tracker that logs work to Jira",
+  "private": true,
+  "main": "src/main/main.js",
+  "author": "atharva29",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --show",
+    "icons": "node scripts/make-icons.mjs",
+    "dist": "electron-builder --mac",
+    "install-app": "electron-builder --mac dir && rm -rf \"/Applications/Jira Time Tracker.app\" && cp -R \"dist/mac-arm64/Jira Time Tracker.app\" /Applications/ && codesign --force --deep -s - \"/Applications/Jira Time Tracker.app\""
+  },
+  "build": {
+    "appId": "com.atharva29.jiratimetracker",
+    "productName": "Jira Time Tracker",
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "extendInfo": {
+        "LSUIElement": true
+      },
+      "icon": "build/icon.png"
+    },
+    "directories": {
+      "buildResources": "build"
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0"
+  }
+}
